@@ -18,32 +18,25 @@ export const PostsList = () => {
   console.log(posts)
   const postStatus = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
- 
-console.log(posts)
 
   useEffect(() => {
-    console.log(postStatus)
-    if (postStatus === 'idle') {
-      dispatch(fetchPosts())
-    }
+    {postStatus === 'idle' && dispatch(fetchPosts())}
   }, [postStatus, dispatch])
 
   let content
 
-  if (postStatus === 'loading') {
+  postStatus === 'loading' ? (
     content = <Spinner text="Loading..." />
-  } else if (postStatus === 'succeeded') {
-    content = posts.map(post => (
-      <PostExcerpt key={post.id} post={post} />
-    ))
-  } else if (postStatus === 'failed') {
+  ) : postStatus === 'succeeded' ? (
+    content = posts.map(post => <PostExcerpt key={post.id} post={post} />)
+  ) : (
     content = <div>{error}</div>
-  }
-  console.log(content)
-return (
-  <section>
-    <h2>Posts</h2>
-    {content}   
-  </section>
-)
+  )
+
+  return (
+    <section>
+      <h2>Posts</h2>
+      {content}   
+    </section>
+  )
 }

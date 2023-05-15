@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const response = await axios.get('https://640114a00a2a1afebee5c77d.mockapi.io/post1')
-  console.log('fetchPosts response:', response)
   return response.data
 })
 
@@ -33,7 +32,7 @@ const postsSlice = createSlice({
       builder
         .addCase(fetchPosts.pending, (state) => {
           state.status = 'loading'
-        })
+        }) 
         .addCase(fetchPosts.fulfilled, (state, action) => {
           state.status = 'succeeded'
           // Add any fetched posts to the array
