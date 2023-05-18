@@ -28,25 +28,27 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {}, 
-    extraReducers(builder) {
-      builder
-        .addCase(fetchPosts.pending, (state) => {
-          state.status = 'loading'
-        }) 
-        .addCase(fetchPosts.fulfilled, (state, action) => {
-          state.status = 'succeeded'
-          // Add any fetched posts to the array
-          state.posts = state.posts.concat(action.payload)
-        })
-        .addCase(fetchPosts.rejected, (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message
-        })
-        .addCase(addNewPost.fulfilled, (state, action) => {
-          // We can directly add the new post object to our posts array
-          state.posts.push(action.payload)
-        })
-      }
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.posts = state.posts.concat(action.payload);
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload);
+      })
+      .addCase(addNewPost.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+  }
     }
   )
 

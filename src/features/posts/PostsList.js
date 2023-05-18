@@ -5,9 +5,9 @@ import { Spinner } from '../../components/Spinner'
 
 const PostExcerpt = ({ post }) => {
   return (
-    <article className="post-excerpt" key={post.id}>
+    <article key={post.id}>
       <h3>{post.title}</h3>
-      <p className="post-content">{post.content.substring(0, 100)}</p>
+      <p>{post.content.substring(0, 100)}</p>
     </article>
   )
 }
@@ -20,7 +20,7 @@ export const PostsList = () => {
   const error = useSelector((state) => state.posts.error)
 
   useEffect(() => {
-    {postStatus === 'idle' && dispatch(fetchPosts())}
+    postStatus === 'idle' && dispatch(fetchPosts())
   }, [postStatus, dispatch])
 
   let content
@@ -28,7 +28,7 @@ export const PostsList = () => {
   postStatus === 'loading' ? (
     content = <Spinner text="Loading..." />
   ) : postStatus === 'succeeded' ? (
-    content = posts.map(post => <PostExcerpt key={post.id} post={post} />)
+    content = posts.map(post => <PostExcerpt post={post} />)
   ) : (
     content = <div>{error}</div>
   )
