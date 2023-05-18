@@ -28,7 +28,7 @@ export const PostsList = () => {
   postStatus === 'loading' ? (
     content = <Spinner text="Loading..." />
   ) : postStatus === 'succeeded' ? (
-    content = posts.map(post => <PostExcerpt post={post} />)
+    content = posts.map(post => <PostExcerpt key={post.id} post={post} />)
   ) : (
     content = <div>{error}</div>
   )
